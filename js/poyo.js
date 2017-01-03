@@ -343,7 +343,7 @@ var Shape = (()=>{
   };
 
   var font;
-  opentype.load('/res/KTEGAKI.ttf',(err,f)=>{
+  opentype.load('/0103/res/KTEGAKI.ttf',(err,f)=>{
     if(err)console.log(err);
     else font = f;
   });
