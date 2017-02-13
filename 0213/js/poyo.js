@@ -343,7 +343,7 @@ var Shape = (()=>{
   };
 
   var font;
-  opentype.load('/Jam/0113/res/KTEGAKI.ttf',(err,f)=>{
+  opentype.load('/Jam/0213/res/KTEGAKI.ttf',(err,f)=>{
     if(err)console.log(err);
     else font = f;
   });
@@ -475,7 +475,7 @@ var Poyo = (function(){
       k.shadow = (h)=>{
         return kon(()=>{
           p1();
-          ctx.shadowColor = Color.black.alpha(0.5).style();
+          ctx.shadowColor = Color.make(0,0.4,0.5).alpha(0.5).style();
           ctx.shadowBlur = h;
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = h/2;
@@ -575,7 +575,7 @@ var Poyo = (function(){
       var v1 = fst;
       var v2 = fst;
       var a = 0;
-      var t = 0;
+      var t = dur;
       var cache = null;
       var i = 0;
       var o = ()=>{
@@ -899,7 +899,10 @@ var Poyo = (function(){
       }),
       size : {x:0,y:0},
       mouse : {x:0,y:0},
-      time : 0
+      time : 0,
+      removeAllButton : ()=>{
+        buttonHandler = [];
+      }
     };
     p.size = (w,h)=>{
       o.size.x = w;
