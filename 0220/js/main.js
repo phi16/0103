@@ -255,7 +255,7 @@ var Main = Poyo.scene("Main",(Po)=>{
         animVel = 1;
         wScale = 100;
         setTimeout(_=>{
-          window.open("https://twitter.com/intent/tweet?text="+encodeURI("[RIGHT ANGLE] Score : " + scoreCount + "https://phi16.github.io/Jam/0220")+"&hashtags=traP3jam","_blank");
+          window.open("https://twitter.com/intent/tweet?text="+encodeURI("[RIGHT ANGLE] Score : " + scoreCount + " https://phi16.github.io/Jam/0220")+"&hashtags=traP3jam","_blank");
           initTitle();
         },2000);
       }
