@@ -304,7 +304,7 @@ var Main = Poyo.scene("Main",(Po)=>{
         rad *= s.ratio * intRatio;
         for(let j=0;j<4;j++){
           let base = j*Math.PI/2 + s.rotate;
-          Shape.arc(rad,Math.PI*0.3+base,base).translate(s.x,s.y).with(R.stroke(8*s.ratio*Math.sqrt(intRatio),Color.black).draw);
+          if(rad>=0)Shape.arc(rad,Math.PI*0.3+base,base).translate(s.x,s.y).with(R.stroke(8*s.ratio*Math.sqrt(intRatio),Color.black).draw);
         }
       }
     });
