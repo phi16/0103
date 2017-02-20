@@ -173,6 +173,7 @@ var Main = Poyo.scene("Main",(Po)=>{
     }
     if(ix==-1)return;
     if(state=="done")return;
+    if(success)return;
     console.log(intersections[ix].angle);
     if(Math.abs(intersections[ix].angle) < 0.00001){
       success = true;
