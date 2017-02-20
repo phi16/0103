@@ -285,7 +285,6 @@ var Shape = (()=>{
   s.arc = (r,b,e)=>s.make((ctx)=>{
     ctx.arc(0,0,r,b,e,1);
   },(x,y)=>false);
-
   s.polygon = (a)=>{
     if(a.length<2)return s.make((ctx)=>{},()=>false);
     return s.make((ctx)=>{
@@ -345,9 +344,12 @@ var Shape = (()=>{
       return 0 <= x && x <= img.width && 0 <= y && y <= img.height;
     });
   };
+  s.poi = (str,x,y,sz)=>s.make((ctx)=>{
+    ctx.fillText(str,x,y);
+  },(x,y)=>false);
 
   var font;
-  opentype.load('/Jam/0213/res/KTEGAKI.ttf',(err,f)=>{
+  opentype.load('/Jam/0220/res/KTEGAKI.ttf',(err,f)=>{
     if(err)console.log(err);
     else font = f;
   });
@@ -451,6 +453,7 @@ var Util = (()=>{
 var Poyo = (function(){
   var Render = (ctx)=>{
     ctx.lineCap = ctx.lineJoin = "round";
+    ctx.font = "10px 'font'";
     var colorA = 1, colorB = 0;
     var kon = (p1,p2)=>{
       var k = {};
@@ -753,12 +756,10 @@ var Poyo = (function(){
     d.handle = (n,mx,my)=>{
       var dx = Po.size.x/2, dy = Po.size.y/2;
       exit.onCollide(mx-dx,my-dy,(p,q)=>{
-        document.body.style.cursor = "pointer";
         if(exit.hover!=2)exit.hover = 1;
         if(n=="MouseDown"){
           exit.handles(p,q);
           exit.hover = 2;
-          document.body.style.cursor = "auto";
         }else if(n=="MouseUp"){
           exit.hover = 1;
         }
@@ -768,12 +769,10 @@ var Poyo = (function(){
       dx += padX-w/2, dy += padY-h/2+20;
       btns.forEach((b)=>{
         b.shape.onCollide(mx-dx,my-dy,(p,q)=>{
-          document.body.style.cursor = "pointer";
           if(b.hover!=2)b.hover = 1;
           if(n=="MouseDown"){
             b.shape.handles(p,q);
             b.hover = 2;
-            document.body.style.cursor = "auto";
           }else if(n=="MouseUp"){
             b.hover = 1;
           }
@@ -791,7 +790,6 @@ var Poyo = (function(){
     var dragHandler = [];
     var stepper = [];
     var changeCursor = (n)=>{
-      if(!dialog)document.body.style.cursor = n;
     };
     var transTime = 0;
     var dialog = null;
@@ -1028,19 +1026,16 @@ var Poyo = (function(){
     return po;
   };
   window.onmousedown = (e)=>{
-    document.body.style.cursor = "auto";
     Object.keys(pos).forEach((c)=>{
       pos[c].event("MouseDown",e);
     });
   };
   window.onmousemove = (e)=>{
-    document.body.style.cursor = "auto";
     Object.keys(pos).forEach((c)=>{
       pos[c].event("MouseMove",e);
     });
   };
   window.onmouseup = (e)=>{
-    document.body.style.cursor = "auto";
     Object.keys(pos).forEach((c)=>{
       pos[c].event("MouseUp",e);
     });
