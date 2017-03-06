@@ -16,8 +16,11 @@ var Main = Poyo.scene("Main",(Po)=>{
   let failTurn = 0;
   let leftEvent = _=>{}, upEvent = _=>{}, rightEvent = _=>{}, downEvent = _=>{};
   function createStage(){
+    let r = Math.floor(Math.random()*14)+1;
+    let ppp = 1;
     for(let i=0;i<4;i++){
-      forbidden[i%2][Math.floor(i/2)] = Math.random() < 0.5 ? 1 : 0;
+      forbidden[i%2][Math.floor(i/2)] = Math.floor(r/ppp)%2;
+      ppp*=2;
     }
     rows = [];
     for(let i=0;i<9;i++){
