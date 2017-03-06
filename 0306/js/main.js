@@ -140,7 +140,7 @@ var Main = Poyo.scene("Main",(Po)=>{
           score++;
           stackY = 0;
           makeLine();
-          if(score==1 || score==2 || score==3){
+          if(score==5 || score==20 || score==100){
             makeLine();
             lookAhead++;
           }
@@ -234,7 +234,7 @@ var Main = Poyo.scene("Main",(Po)=>{
       let ten = 1;
       for(let i=digits-1;i>-1;i--){
         let d = Math.floor(score/ten)%10;
-        Shape.imageClipped("number",d*50,0,50,83).scale(2,2).translate(-digits*100+i*100+250,70).with(R.blur(5,Color.blue).draw);
+        Shape.imageClipped("number",d*50,0,50,83).scale(1.7,1.7).translate(-digits*90+i*90+280,100).with(R.blur(5,Color.blue).draw);
         ten*=10;
       }
       Shape.image("arrow").translate(450,350).scale(1.2,1.2).with(R.blur(5,Color.orange).draw);
