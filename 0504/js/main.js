@@ -168,15 +168,16 @@ var Main = Poyo.scene("Main",(Po)=>{
       }
 
       Shape.circle(100).translate(800,0).with(R.fill(Color.make(1,1,0)).blur(120+20*Math.sin(time*Math.PI/40)).draw);
-      Shape.rect(100,600).translate(800,0).with(R.fill(Color.white).draw);
+      Shape.rect(1000,600).translate(800,0).with(R.fill(Color.white).draw);
       Shape.rect(1000,500).translate(0,-500).with(R.fill(Color.white).draw);
-      Shape.rect(100,600).translate(-100,0).with(R.fill(Color.white).draw);
+      Shape.rect(1000,600).translate(-1000,0).with(R.fill(Color.white).draw);
       if(blur){
         Shape.text("P a u s e d").up.scale(30,30).translate(400,620).with(R.fill(Color.make(0.5,0.5,0.5)).draw);
       }else{
         Shape.text("[Space]").up.scale(30,30).translate(400,620).with(R.fill(Color.make(0.8,0.8,0.8)).draw);
         Shape.text("[5]").up.scale(30,30).translate(400,670).with(R.fill(Color.make(0.98,0.98,0.98)).draw);
       }
+      if(cnt+noga>=10)Shape.text("あぶらげ100個ちゃれんじ").down.scale(30,30).translate(400,-20).with(R.fill(Color.make(0.8,0.8,0.8)).draw);
     });
   };
   return scene;
