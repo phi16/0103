@@ -11,7 +11,7 @@ var Main = Poyo.scene("Main",(Po)=>{
   let wait = 0;
   let gosencho = false;
   let end = false, endTimer = 0;
-  let perc = 0.01;
+  let perc = 0.005;
   function update(){
     if(cnt+noga >= 100 || gosencho){
       end = true;
