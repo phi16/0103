@@ -112,6 +112,7 @@ var Main = Poyo.scene("Main",(Po)=>{
       if(e.leaf){
         delete e.leaf;
         e.stalk = true;
+        e.leafy = 1;
         boundary = {left:0,right:0,top:0,bottom:0};
         calcBoundary();
         procd = true;
@@ -121,6 +122,7 @@ var Main = Poyo.scene("Main",(Po)=>{
         let dy = e.real.y - pos.y;
         let dir = dx*dx+dy*dy<0.001 ? 0 : Math.atan2(-dx,dy) - e.real.d;
         delete e.stalk;
+        e.scale = 0;
         e.grow = true;
         e.direction = dir;
         e.diff = pi/4 + Math.random()*pi/3;
@@ -193,18 +195,27 @@ var Main = Poyo.scene("Main",(Po)=>{
         Shape.line(0,0,0,-h).with(R.stroke(2,green).shadow(1,green).draw);
         Shape.line(0,0,0,-h).with(R.stroke(1,lime).shadow(2,green).draw);
       }else if(node.stalk){
+        let lf = node.leafy!==undefined ? node.leafy : 0;
+        if(node.leafy!==undefined && node.leafy>=0.1)node.leafy-=0.1;
+        let f = lf*lf*lf;
+        Shape.leaf(h*1.3*f).translate(0,-h*(1-f)).with(R.fill(moss).shadow(10,lmoss).draw);
         Shape.line(0,0,0,-h).with(R.stroke(3,green).shadow(1,green).draw);
         Shape.line(0,0,0,-h).with(R.stroke(2,lime).shadow(2,green).draw);
-        Shape.circle(h/2).translate(0,-h).with(R.fill(Color.yellow.alpha(0.2)).draw);
-        Shape.circle(h/2).translate(0,-h).with(R.stroke(0.2,Color.yellow.alpha(0.7)).draw);
+        Shape.circle(h/2*(1-f)).translate(0,-h).with(R.fill(Color.yellow.alpha(0.2)).draw);
+        Shape.circle(h/2*(1-f)).translate(0,-h).with(R.stroke(0.2,Color.yellow.alpha(0.7)).draw);
       }else if(node.grow){
+        let s = node.scale!==undefined ? node.scale : 1;
+        if(node.scale!==undefined && node.scale <= 0.9)node.scale += 0.1;
+        let ad = 2.5-1.5*s;
         R.translated(0,-h,_=>{
-          R.rotated(node.direction,_=>{
-            R.rotated(-node.diff/2,_=>{
-              traverse(node.left);
-            });
-            R.rotated(node.diff/2,_=>{
-              traverse(node.right);
+          R.scaled(Math.pow(s,0.2),Math.pow(s,0.2),_=>{
+            R.rotated(node.direction,_=>{
+              R.rotated(-node.diff/2*Math.pow(ad,0.2),_=>{
+                traverse(node.left);
+              });
+              R.rotated(node.diff/2*Math.pow(ad,0.2),_=>{
+                traverse(node.right);
+              });
             });
           });
         });
