@@ -50,7 +50,6 @@ Util.register("Visual",_=>{
     let pressKey = [];
     window.addEventListener("keydown",e=>{
       pressKey[e.keyCode] = true;
-      if(e.keyCode==13)x += 200, y-=200;
     });
     window.addEventListener("keyup",e=>{
       pressKey[e.keyCode] = false;
