@@ -12,12 +12,6 @@ Util.register("Logic",_=>{
   });
 
   l.begin = Q.do(function*(){
-    yield Q.listen(Q.do(function*(){
-      const d = yield l.wait("Mouse");
-      if(d.press){
-        yield Visual.emit("Switch");
-      }
-    }));
   });
   return l;
 });
