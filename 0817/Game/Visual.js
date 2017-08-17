@@ -1,5 +1,6 @@
 Util.register("Visual",_=>{
   const v = {};
+
   const waitQ = {};
   v.wait = str=>Q.do(function*(){
     if(!waitQ[str])waitQ[str] = Q.emptyBox();
@@ -9,6 +10,7 @@ Util.register("Visual",_=>{
     if(!waitQ[str])waitQ[str] = Q.emptyBox();
     return Q.putBox(waitQ[str],data);
   });
+
   Q.run(Q.do(function*(){
     const shape = Shape.rect(0,0,Util.width,Util.height);
 
