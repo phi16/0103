@@ -20,7 +20,7 @@ Util.register("Visual",_=>{
 
     let x = 60, y = Util.height, vx = 0, vy = 0, angle = 0;
     let shooting = false, submerge = false;
-    let sca = 0, goalPos = Util.width*3;
+    let sca = 0, goalPos = Util.width*4;
     let goal = false, startTime = 0, endTime = 0;
 
     const chara = Image.get("res/chara.png");
@@ -34,7 +34,11 @@ Util.register("Visual",_=>{
     let dropPoints = {};
 
     let blockList = [
-    //  {x:800,y:400,w:400,h:200}
+      {x:600,y:300,w:40,h:200},
+      {x:1400,y:400,w:400,h:400},
+      {x:2000,y:500,w:600,h:400},
+      {x:2100,y:400,w:500,h:500},
+      {x:2200,y:300,w:400,h:600},
     ];
     let blockShape = [];
     blockShape.push(Shape.rect(0,Util.height,Util.width*10,Util.height));
@@ -46,6 +50,7 @@ Util.register("Visual",_=>{
     let pressKey = [];
     window.addEventListener("keydown",e=>{
       pressKey[e.keyCode] = true;
+      if(e.keyCode==13)x += 200, y-=200;
     });
     window.addEventListener("keyup",e=>{
       pressKey[e.keyCode] = false;
@@ -107,11 +112,13 @@ Util.register("Visual",_=>{
           blocks.push(blockShape);
           R.clip(Shape.union(blocks))(_=>{
             for(let i=0;i<10;i++){
-              R.translate(i*water.width()*1.5,400)(_=>{
-                R.scale(1.5,1.5)(_=>{
-                  water.draw();
+              for(let j=0;j<2;j++){
+                R.translate(i*water.width()*1.5,400-j*water.height()*1.5)(_=>{
+                  R.scale(1.5,1.5)(_=>{
+                    water.draw();
+                  });
                 });
-              });
+              }
             }
           });
         });
@@ -153,6 +160,7 @@ Util.register("Visual",_=>{
           }
         }));
         let frame = 0;
+        let onWall = false;
         yield Q.listen(Q.do(function*(){
           if(isPressing(' ')){
             let ok = false;
@@ -173,8 +181,18 @@ Util.register("Visual",_=>{
             }
           }else submerge = false;
           if(submerge){
-            if(isPressing('D'))vx+=0.5;
-            if(isPressing('A'))vx-=0.5;
+            if(isPressing('D')){
+              if(onWall){
+                if(Math.abs(vy)<0.0001)vy=-0.5;
+                else vy-=0.13;
+              }else vx+=0.5;
+            }
+            if(isPressing('A')){
+              if(onWall){
+                if(Math.abs(vy)<0.0001)vy=-0.5;
+                else vy-=0.13;
+              }else vx-=0.5;
+            }
             sca += 0.05;
           }else{
             if(isPressing('D'))vx+=0.2;
@@ -195,24 +213,36 @@ Util.register("Visual",_=>{
             endTime = new Date();
           }
 
-          /*
+          let lx,ty,rx,by;
+          if(submerge){
+            lx = rx = x+chara.width()*0.4*cScale;
+            ty = by = y;
+          }else{
+            lx = x, ty = y-chara.height()*cScale;
+            rx = x+chara.width()*cScale, by = y;
+          }
+          onWall = false;
           for(let i=0;i<blockList.length;i++){
             let b = blockList[i];
-            if(Shape.rect(b.x,b.y,b.w,b.h).region(d.x,d.y)){
-              let d1 = Math.abs(b.x-d.x);
-              let d2 = Math.abs(b.y-d.y);
-              let d3 = Math.abs(b.x+b.w-d.x);
-              let d4 = Math.abs(b.y+b.h-d.y);
+            if(Shape.rect(b.x,b.y,b.w,b.h).region(lx,ty)
+            || Shape.rect(b.x,b.y,b.w,b.h).region(rx,ty)
+            || Shape.rect(b.x,b.y,b.w,b.h).region(lx,by)
+            || Shape.rect(b.x,b.y,b.w,b.h).region(rx,by)){
+              let d1 = Math.max(0,b.x+b.w-lx);
+              let d2 = Math.max(0,b.y+b.h-ty);
+              let d3 = Math.max(0,rx-b.x);
+              let d4 = Math.max(0,by-b.y);
               let m = Math.min(d1,Math.min(d2,Math.min(d3,d4)));
-              if(m==d1 || m==d3)a=Math.PI/2;
-              else a=0;
+              if(m==d1 && vx<=0)x=b.x+b.w-chara.width()*0.4*cScale*sca,vx=0,onWall = true;
+              if(m==d3 && vx>=0)x=b.x-chara.width()*cScale*(1-sca)-chara.width()*0.4*cScale*sca,vx=0,onWall = true;
+              if(m==d4)y=b.y,vy=0;
             }
-          }*/
+          }
 
           if(x-camX<0+100)camX = x-100;
           if(x-camX>Util.width-300)camX = x-Util.width+300;
           if(y-camY<0+300)camY = y-300;
-          if(y-camY>Util.height-50)camY = y-Util.height+50;
+          if(y-camY>Util.height-100)camY = y-Util.height+100;
           if(camX<0)camX=0;
           for(let i=0;i<drops.length;i++){
             let d = drops[i];
@@ -283,7 +313,7 @@ Util.register("Visual",_=>{
         time++;
         if(time==510){
           let t = (endTime-startTime)/1000 + "sec";
-          window.open("https://twitter.com/intent/tweet?text="+encodeURI("Score : " + t + " https://phi16.github.io/Jam/0817")+"&hashtags=traP3jam","_blank");
+          window.open("https://twitter.com/intent/tweet?text="+encodeURI("[Shooter Swimmer] Score : " + t + " https://phi16.github.io/Jam/0817")+"&hashtags=traP3jam","_blank");
         }
       }
       yield Q.abort;
