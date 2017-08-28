@@ -81,6 +81,7 @@ Util.register("Visual",_=>{
     let startTime, currentTime;
     let finish = false, ending = false;
     let score = 0, scoreSize = 0, scoreAlpha = 0;
+    let beforeStart = true;
     const render = _=>{
       R.fill(Color.rgb255(49,49,49))(Shape.rect(0,0,Util.width,Util.height));
       let mult = Math.min(1,buffLen/Util.width);
@@ -163,6 +164,9 @@ Util.register("Visual",_=>{
           });
         }
       }
+      R.translate(Util.width/2,0)(_=>{
+        R.fill(Color.rgba(1,1,1,0.5))(Shape.numberText(0,40,40,"[Voice Only]",0,-1));
+      });
     };
     const handler = box=>Q.do(function*(){
       yield Q.listen(Q.do(function*(){
@@ -193,6 +197,7 @@ Util.register("Visual",_=>{
               vibras[j] += (0 - vibras[j]) / 4.;
             }
             if(vibras[j] > 3){
+              beforeStart = false;
               crash[j] = 1;
             }
           }
