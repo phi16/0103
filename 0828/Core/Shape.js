@@ -122,7 +122,10 @@ Util.register("Shape","S",_=>{
   // Shape -> Shape
   s.invert = (s)=>kon((p,q)=>{
     return !s.region(p,q);
-  },_=>_);
+  },(ctx,isFill)=>{
+    ctx.rect(-1000,-1000,2000,2000);
+    s.path(ctx,isFill);
+  });
   // (() -> Shape) -> Shape
   s.delay = (act)=>kon((p,q)=>{
     return act().region(p,q);

@@ -4,6 +4,7 @@ Util.register("Render","R",_=>{
   // Context
   let canvas = document.getElementById("canvas");
   let context = document.getElementById("canvas").getContext('2d');
+  context.lineCap = "round";
   // [R]
   let aff = [1,0,0,0,1,0];
   r.affineArray = _=>aff;
@@ -45,7 +46,7 @@ Util.register("Render","R",_=>{
     context.save();
     context.beginPath();
     shape.path(context,true);
-    context.clip();
+    context.clip("evenodd");
     act();
     context.restore();
   };
