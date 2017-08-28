@@ -164,9 +164,11 @@ Util.register("Visual",_=>{
           });
         }
       }
-      R.translate(Util.width/2,0)(_=>{
-        R.fill(Color.rgba(1,1,1,0.5))(Shape.numberText(0,40,40,"[Voice Only]",0,-1));
-      });
+      if(beforeStart){
+        R.translate(Util.width/2,0)(_=>{
+          R.fill(Color.rgba(1,1,1,0.5))(Shape.numberText(0,40,40,"[Voice Only]",0,-1));
+        });
+      }
     };
     const handler = box=>Q.do(function*(){
       yield Q.listen(Q.do(function*(){
