@@ -410,10 +410,14 @@ function step(){
     }
   }
 }
+let pushed = {};
 window.addEventListener("keydown",e=>{
-  if(e.keyCode==40){ // Down
-    disposeBlock();
-  }
+  if(pushed[e.keyCode])return;
+  disposeBlock();
+  pushed[e.keyCode] = true;
+});
+window.addEventListener("keyup",e=>{
+  delete pushed[e.keyCode];
 });
 
 function render(){
