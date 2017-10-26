@@ -204,9 +204,9 @@ uniform vec2 resolution;
 uniform vec2 center;
 uniform float time;
 void main(void){
-  float scale = max(0., 3.-pow((time-5.)/5.,2.)*2.);
+  float scale = max(0., 3.-pow(max(0.,(time-5.)/5.),2.)*2.);
   vec2 pos = position * vec2(120,120) * scale;
-  float a = pow(time/10.,3.)*3.;
+  float a = pow(max(0.,time/10.),3.)*3.;
   pos *= mat2(cos(a),sin(a),-sin(a),cos(a));
   pos += center;
   coord = position * 2.;
@@ -223,8 +223,8 @@ void main(void){
   float e = 2.;
   vec2 c = coord.xy;
   if(abs(c.x) < 1. && abs(c.y) < 1.){
-    float frame = pow(c.x * 1.1,8.) + pow(c.y * 1.1,8.);
-    float core = pow(pow(abs(c.x), 2.) + pow(abs(c.y), 2.), 0.3);
+    float frame = pow(abs(c.x) * 1.1,8.) + pow(abs(c.y) * 1.1,8.);
+    float core = pow(max(0, pow(abs(c.x), 2.) + pow(abs(c.y), 2.)), 0.3);
     vec3 ret = col;
     ret *= frame;
     ret += max(0., 1.5 - core) * col;
@@ -265,7 +265,7 @@ void main(void){
   float e = 2.;
   vec2 c = coord.xy;
   if(abs(c.x) < 1. && abs(c.y) < 1.){
-    float frame = pow(c.x * 1.1,8.) + pow(c.y * 1.1,8.);
+    float frame = pow(abs(c.x) * 1.1,8.) + pow(abs(c.y) * 1.1,8.);
     float core = pow(pow(abs(c.x), 2.) + pow(abs(c.y), 2.), 0.3);
     vec3 ret = col;
     ret *= frame;
