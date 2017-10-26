@@ -112,7 +112,7 @@ void main(void){
   vec3 col = cos(vec3(1,-1,0)*2./3.*3.141592 + color) * 0.5 + 0.5;
   if(abs(coord.x) < 1. && abs(coord.y) < 1.){
     vec2 c = coord;
-    float frame = pow(c.x * 1.1,8.) + pow(c.y * 1.1,8.);
+    float frame = pow(abs(c.x) * 1.1,8.) + pow(abs(c.y) * 1.1,8.);
     float core = pow(pow(abs(c.x), 2.) + pow(abs(c.y), 2.), 0.3);
     vec3 ret = col;
     ret *= frame;
@@ -431,6 +431,8 @@ function step(){
       if(score == 60) period = 60, fastEffect();
       if(score == 80) period = 55, fastEffect();
       if(score == 100) period = 50, fastEffect();
+      if(score == 150) period = 45, fastEffect();
+      if(score == 200) period = 40, fastEffect();
     }else{
       fail = true;
       failTime = 0;
@@ -444,6 +446,17 @@ window.addEventListener("keydown",e=>{
   pushed[e.keyCode] = true;
 });
 window.addEventListener("keyup",e=>{
+  delete pushed[e.keyCode];
+});
+window.addEventListener("touchstart",e=>{
+  if(pushed[e.keyCode])return;
+  disposeBlock();
+  pushed[e.keyCode] = true;
+});
+window.addEventListener("touchcancel",e=>{
+  delete pushed[e.keyCode];
+});
+window.addEventListener("touchend",e=>{
   delete pushed[e.keyCode];
 });
 
