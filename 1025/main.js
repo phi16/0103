@@ -292,19 +292,45 @@ let fail = false, failTime = 0;
 let maxScore = 0;
 
 function randGen(){
-  let rest = [];
+  let history = [];
   return _=>{
-    if(rest.length == 0){
-      rest.push(0,1,2);
-      let i,t;
-      i = Math.floor(Math.random()*3);
-      t=rest[i];rest[i]=rest[0];rest[0]=t;
-      i = Math.floor(Math.random()*2)+1;
-      t=rest[i];rest[i]=rest[1];rest[1]=t;
-      return rest.shift();
-    }else{
-      return rest.shift();
+    let cand = [3,3,3];
+    for(let i=0;i<history.length;i++){
+      cand[history[i]]--;
     }
+    if(history.length >= 2){
+      let l = history.length-1;
+      if(history[l] == history[l-1]){
+        cand[history[l]] = 0;
+      }
+    }
+    if(history.length == 3){
+      for(let i=0;i<cand.length;i++){
+        if(cand[i] == 3){
+          // only one!
+          cand = [0,0,0];
+          cand[i] = 1;
+          break;
+        }
+      }
+    }
+    let sum = 0;
+    for(let i=0;i<cand.length;i++){
+      sum += cand[i];
+    }
+    let m = Math.random();
+    let cur = 0;
+    let c = -1;
+    for(let i=0;i<cand.length;i++){
+      cur += cand[i];
+      if(m < cur/sum){
+        cur = i;
+        break;
+      }
+    }
+    if(history.length == 3) history.shift();
+    history.push(cur);
+    return cur;
   };
 }
 let blockGen = randGen();
@@ -331,6 +357,7 @@ function init(){
 init();
 
 function disposeBlock(){
+  if(blockStack.length == 0)return;
   let b = blockStack.shift();
   b.vy = -20;
   blockDispose.push(b);
@@ -364,7 +391,7 @@ function step(){
   }
   for(let i=0;i<cubeSeq.length;i++){
     let c = cubeSeq[i];
-    let dirX = i*size*7;
+    let dirX = i*size*5;
     c.x += (dirX - c.x) / 4.;
   }
   for(let i=0;i<blockDispose.length;i++){
