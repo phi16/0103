@@ -204,7 +204,7 @@ uniform vec2 resolution;
 uniform vec2 center;
 uniform float time;
 void main(void){
-  float scale = max(0., 3.-pow(max(0.,(time-5.)/5.),2.)*2.);
+  float scale = max(0., 3.-pow(abs((time-5.)/5.),2.)*2.);
   vec2 pos = position * vec2(120,120) * scale;
   float a = pow(max(0.,time/10.),3.)*3.;
   pos *= mat2(cos(a),sin(a),-sin(a),cos(a));
