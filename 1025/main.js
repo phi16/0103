@@ -224,7 +224,7 @@ void main(void){
   vec2 c = coord.xy;
   if(abs(c.x) < 1. && abs(c.y) < 1.){
     float frame = pow(abs(c.x) * 1.1,8.) + pow(abs(c.y) * 1.1,8.);
-    float core = pow(max(0, pow(abs(c.x), 2.) + pow(abs(c.y), 2.)), 0.3);
+    float core = pow(max(0., pow(abs(c.x), 2.) + pow(abs(c.y), 2.)), 0.3);
     vec3 ret = col;
     ret *= frame;
     ret += max(0., 1.5 - core) * col;
