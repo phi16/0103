@@ -347,7 +347,7 @@ let timeline = (_=>{
               while("frame" !== (yield event));
             }
             if(count == opti[stageIx]){
-              startTime += 3000;
+              startTime += 5000;
               timeSize = 5;
               score++;
               scoreSize = 5;
