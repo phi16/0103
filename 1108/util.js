@@ -67,3 +67,17 @@ function keyInput(corresp){
   wholeKey.connect(pipe);
   return pipe;
 }
+
+const mouseInput = Pipe.source(send=>Q.do(function*(){
+  yield Q.switch;
+  let rect = document.getElementById("canvas").getBoundingClientRect();
+  window.addEventListener("mousemove",e=>{
+    Q.run(send({move:true,x:e.clientX-rect.left,y:rect.height - (e.clientY-rect.top)}));
+  });
+  window.addEventListener("mouseup",e=>{
+    Q.run(send({up:true,x:e.clientX-rect.left,y:rect.height - (e.clientY-rect.top)}));
+  });
+  window.addEventListener("mousedown",e=>{
+    Q.run(send({down:true,x:e.clientX-rect.left,y:rect.height - (e.clientY-rect.top)}));
+  });
+}));

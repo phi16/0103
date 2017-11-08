@@ -77,8 +77,7 @@ window.addEventListener("load",_=>{
   const textCvs = document.getElementById("text");
   const ctx = textCvs.getContext('2d');
   ctx.font = "25px 'number'";
-  ctx.fillStyle = "rgb(255,255,255)";
-  ctx.textAlign = "right";
+  ctx.fillStyle = "rgb(128,64,0)";
 
   R = {
     make: makeRender,
@@ -91,7 +90,8 @@ window.addEventListener("load",_=>{
       ctx.rect(x/2+scrW/2,scrH/2-y/2,w/2,h/2);
       ctx.fill();
     },
-    text:(x,y,s,text)=>{
+    text:(x,y,s,align,text)=>{
+      ctx.textAlign = align;
       ctx.font = (s/2) + "px 'number'";
       ctx.fillText(text,x/2+scrW/2,scrH/2-y/2);
     }
