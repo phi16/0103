@@ -335,12 +335,17 @@ let timeline = (_=>{
             for(let i=0;i<30;i++){
               while("frame" !== (yield event));
             }
-            tiles.forEach(t=>{
-              let m = t.y - t.x + 5;
-              t.delay = m*2+1;
-            });
-            for(let i=0;i<30;i++){
-              while("frame" !== (yield event));
+            if(count <= opti[stageIx]){
+              tiles.forEach(t=>{
+                let m = t.y - t.x + 5;
+                t.delay = m*2+1;
+                if(count < opti[stageIx]){
+                  t.vf = 2;
+                }
+              });
+              for(let i=0;i<30;i++){
+                while("frame" !== (yield event));
+              }
             }
             for(let i=0;i<30;i++){
               slide += i*i;
