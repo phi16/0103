@@ -231,7 +231,7 @@ let timeline = (_=>{
         if(t.light >= 0 && inScreen(x+size/2,y+size/2)) existVisible = true;
       });
     });
-    R.text(10,10,80,"left",stageIndex+1,Math.floor(aa*128));
+    R.text(10,10,80,"left",stageIndex+1,Math.floor(aa*128)*0.9+(255/10));
   };
   t.stream = Pipe.sink(event=>Q.do(function*(){
     function* waitFrame(n) {
