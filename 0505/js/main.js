@@ -255,7 +255,7 @@ let graph = {};
 let current = {};
 let vanish = {};
 
-let stageIx = 8;
+let stageIx = 0;
 let motionPos = 0;
 function loadStage() {
   graph = stages[stageIx];
