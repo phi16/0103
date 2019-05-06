@@ -336,6 +336,10 @@ var Shape = (()=>{
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2,y2);
   },(x,y)=>false);
+  s.bezier = (x0,y0,x1,y1,x2,y2,x3,y3)=>s.make((ctx)=>{
+    ctx.moveTo(x0,y0);
+    ctx.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+  },(x,y)=>false);
   s.image = (name)=>{
     var img = Picture.get(name);
     if(!img)return;
