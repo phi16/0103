@@ -160,7 +160,6 @@ const Cell = (iniFace, border, borderDir)=>{
 };
 
 let endGame = false, endPop = false;
-const aspectRatio = 1.6/0.9;
 const cursor = { x: 8, y: 5, face: 0, fm: 0, xm: 8, ym: 5, sc: 2 };
 cursor.input = (dx,dy) => {
   if(endGame) return;
@@ -436,10 +435,14 @@ Q.renderCallback.push((aX,aw,ah)=>{
 
   X.save();
   let w, h;
+  const aspectRatio = 1.6/1.1;
   if(aw < aspectRatio * ah) w = aw, h = w / aspectRatio;
   else w = ah * aspectRatio, h = ah;
+  X.translate(aw/2,ah/2);
+  X.translate(-aw/2,-ah/2);
   X.translate(aw/2-w/2,ah/2-h/2);
-  X.scale(w/1600, h/900);
+  X.scale(w/1600, h/1100);
+  X.translate(0,100);
 
   X.globalCompositeOperation = "lighter";
   for(let i=0;i<17;i++) {
@@ -468,8 +471,10 @@ Q.renderCallback.push((aX,aw,ah)=>{
   });
 
   X.globalCompositeOperation = "source-over";
-  R.rect(0,-200,1600,200).fill(hue(0,0,0));
-  R.rect(0,900,1600,200).fill(hue(0,0,0));
+  R.rect(-500,-200,2600,200).fill(hue(0,0,0));
+  R.rect(-500,900,2600,200).fill(hue(0,0,0));
+  R.rect(-200,-500,200,1900).fill(hue(0,0,0));
+  R.rect(1600,-500,200,1900).fill(hue(0,0,0));
   R.text("HowToPlay: Arrows / Space",800,-40,50).fill(hue(0,0,0.5));
   const rem = Math.floor(120 - reTime + 1);
   if(rem < -1) {
