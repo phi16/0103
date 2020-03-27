@@ -491,7 +491,7 @@ Q.renderCallback.push((aX,aw,ah)=>{
     R.text("Remaining: " + rem + "s",800,940,50).fill(hue(0,0,0.5));
   }
   if(rem == -4 && !endPop) {
-    window.open("https://twitter.com/intent/tweet?text="+encodeURI("[Jam0327] Score: " + score + " phi16.github.io/Jam/0327")+"&hashtags=traP3jam","_blank");
+    window.open("https://twitter.com/intent/tweet?text="+encodeURI("[F2C] Score: " + score + " phi16.github.io/Jam/0327")+"&hashtags=traP3jam","_blank");
     endPop = true;
   }
   function cursorRender() {
