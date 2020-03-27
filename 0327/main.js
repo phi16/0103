@@ -393,10 +393,10 @@ let direction = [false, false, false, false];
 document.addEventListener("keydown",e=>{
   if(endGame) return;
   if(!flip) {
-    if(e.key == "ArrowDown") cursor.input(0,1);
-    if(e.key == "ArrowUp") cursor.input(0,-1);
-    if(e.key == "ArrowRight") cursor.input(1,0);
-    if(e.key == "ArrowLeft") cursor.input(-1,0);
+    if(e.key == "ArrowDown" || e.key == "j") cursor.input(0,1);
+    if(e.key == "ArrowUp" || e.key == "k") cursor.input(0,-1);
+    if(e.key == "ArrowRight" || e.key == "l") cursor.input(1,0);
+    if(e.key == "ArrowLeft" || e.key == "h") cursor.input(-1,0);
     if(e.key == " ") {
       flip = true;
       flipTime = 0;
