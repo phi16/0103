@@ -12,6 +12,12 @@ Util.register("Visual",_=>{
   });
 
   const audio = new AudioContext();
+  document.addEventListener("keydown",_=>{
+    audio.resume();
+  });
+  document.addEventListener("mousedown",_=>{
+    audio.resume();
+  });
   const analyser = audio.createAnalyser();
   analyser.fftSize = 2048;
   const buffLen = analyser.frequencyBinCount;
