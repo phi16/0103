@@ -477,7 +477,7 @@ Q.renderCallback.push((aX,aw,ah)=>{
   R.rect(1600,-500,200,1900).fill(hue(0,0,0));
   R.text("HowToPlay: Arrows / Space",800,-40,50).fill(hue(0,0,0.5));
   const rem = Math.floor(120 - reTime + 1);
-  if(rem < -1) {
+  if(rem < 0) {
     R.text("! Finish !",800,940,50).fill(hue(0,0,0.5));
     if(!endGame) {
       for(let i=0;i<17;i++) {
